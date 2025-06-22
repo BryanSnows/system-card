@@ -7,16 +7,13 @@ import { ClientsController } from './clients/clients.controller';
 import { ClientsService } from './clients/clients.service';
 import { CardsController } from './cards/cards.controller';
 import { CardsService } from './cards/cards.service';
+import { AppDataSource } from './configs/database/typeorm.config';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(AppDataSource.options),
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database.sqlite',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
-    }),
+
   ],
   controllers: [AppController, ClientsController, CardsController],
   providers: [AppService, ClientsService, CardsService],
