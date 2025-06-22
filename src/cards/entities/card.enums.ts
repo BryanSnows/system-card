@@ -1,0 +1,20 @@
+export enum CardStatus {
+  REQUESTED = 'SOLICITADO',
+  APPROVED = 'APROVADO',
+  DELIVERED = 'ENTREGUE',
+  ACTIVE = 'ATIVO',
+  TEMP_BLOCKED = 'BLOQUEADO_TEMPORARIO',
+  BLOCKED_LOST_ROBBERY = 'BLOQUEADO_PERDA_ROUBO',
+  CANCELED = 'CANCELADO',
+}
+
+export enum CardType {
+  DEBIT = 'DEBITO',
+  CREDIT = 'CREDITO',
+}
+
+export enum CardFlag {
+  VISA = 'VISA',
+  MASTERCARD = 'MASTERCARD',
+  ELO = 'ELO',
+} 
