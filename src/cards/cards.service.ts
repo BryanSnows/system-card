@@ -23,7 +23,6 @@ export class CardsService {
   async requestCard(createCardDto: CreateCardDto): Promise<Card> {
     const client = await this.clientsService.findOne(createCardDto.clientId);
 
-    // Basic income validation for credit card
     if (createCardDto.type === CardType.CREDIT && client.monthlyIncome < 1500) {
       throw new BadRequestException(
         'Minimum monthly income of 1500 is required for a credit card.',
@@ -46,7 +45,6 @@ export class CardsService {
     });
 
     const savedCard = await this.cardRepository.save(card);
-    // Setting status to approved for demonstration purposes
     savedCard.status = CardStatus.APPROVED;
     return this.cardRepository.save(savedCard);
   }
@@ -70,7 +68,7 @@ export class CardsService {
     }
 
     card.status = CardStatus.ACTIVE;
-    card.password = activateCardDto.password; // The hash is done by the entity's BeforeInsert/BeforeUpdate hook
+    card.password = activateCardDto.password; 
     return this.cardRepository.save(card);
   }
 
@@ -96,19 +94,15 @@ export class CardsService {
       throw new NotFoundException(`Card with ID "${id}" not found`);
     }
     return card;
-  }
-
-  // --- Private Helper Methods ---
+  }s
 
   private generateCardNumber(): string {
-    // Generates a 16-digit number
     return Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join(
       '',
     );
   }
 
-  private generateCvv(): string {
-    // Generates a 3-digit number
+  private generateCvv(): string { 
     return Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(
       '',
     );
@@ -116,7 +110,7 @@ export class CardsService {
 
   private generateExpirationDate(): string {
     const date = new Date();
-    date.setFullYear(date.getFullYear() + 5); // 5 years validity
+    date.setFullYear(date.getFullYear() + 5); 
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString().slice(-2);
     return `${month}/${year}`;

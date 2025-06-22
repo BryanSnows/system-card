@@ -1,5 +1,6 @@
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -41,7 +42,7 @@ export class Card {
   @Column({ type: 'enum', enum: CardStatus, default: CardStatus.REQUESTED })
   status: CardStatus;
 
-  @Column()
+  @Column({ nullable: true })
   password?: string;
 
   @ManyToOne(() => Client, (client) => client.cards, { eager: true })
@@ -55,9 +56,13 @@ export class Card {
   updatedAt: Date;
 
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
     if (this.password) {
-      this.password = await bcrypt.hash(this.password, 10);
+      const isHashed = this.password.startsWith('$2b$');
+      if (!isHashed) {
+        this.password = await bcrypt.hash(this.password, 10);
+      }
     }
   }
 } 

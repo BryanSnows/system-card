@@ -7,8 +7,8 @@ export class ActivateCardDto {
   @IsNotEmpty()
   cardNumber: string;
 
-  @ApiProperty({ description: '6-digit password' })
+  @ApiProperty({ description: 'Password must be at least 8 characters long' })
   @IsString()
-  @Length(6, 6, { message: 'Password must be 6 digits' })
+  @Length(8, 20, { message: 'Password must be between 8 and 20 characters' })
   password: string;
 } 
