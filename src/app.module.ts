@@ -1,24 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClientsController } from './clients/clients.controller';
-import { ClientsService } from './clients/clients.service';
-import { CardsController } from './cards/cards.controller';
-import { CardsService } from './cards/cards.service';
+import { AppDataSource } from './configs/database/typeorm.config';
+import { CardsModule } from './cards/cards.module';
+import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(AppDataSource.options),
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database.sqlite',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
-    }),
+    CardsModule,
+    ClientsModule
   ],
-  controllers: [AppController, ClientsController, CardsController],
-  providers: [AppService, ClientsService, CardsService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

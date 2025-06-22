@@ -3,7 +3,9 @@ import { CardsService } from './cards.service';
 import { CardsController } from './cards.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Card } from './entities/card.entity';
-import { ClientsModule } from '../clients/clients.module';
+import { Client } from 'src/clients/entities/client.entity';
+import { ClientsModule } from 'src/clients/clients.module';
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([Card]), ClientsModule],

@@ -8,6 +8,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  // Swagger Config
   const config = new DocumentBuilder()
     .setTitle('Card Processing System')
     .setDescription('API for managing credit/debit card transactions.')
@@ -16,7 +17,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  // Swagger config
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(3000);
 }
 bootstrap();

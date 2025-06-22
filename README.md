@@ -41,6 +41,18 @@ $ git clone https://github.com/YslanProjects/System-Card.git
 $ npm install
 ```
 
+
+## Migration
+
+We are using [TypeORM](https://typeorm.io/#/) to manage all migrations. For each entity change run:
+
+```bash
+$ npm run typeorm:migrate -- src/migrations/name
+```
+
+This will update the migrations folder.
+
+
 ## Compile and run the project
 
 ```bash
